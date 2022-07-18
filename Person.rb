@@ -18,3 +18,13 @@ class Person
     end
 
 end
+class Student < Person
+    def initialize(classroom)
+        super("Joy",24,false)
+        @classroom=classroom
+    end
+
+    def play_hooky
+        "¯\(ツ)/¯"
+    end
+end
