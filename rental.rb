@@ -7,6 +7,6 @@ class Rental
     @person = person
     book.rental.push(self) unless book.rental.includes?(self)
     @book = book
-     person.rental.push(self) unless person.rental.includes?(self)
+    person.rental.push(self) unless person.rental.includes?(self)
   end
 end
