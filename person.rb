@@ -1,7 +1,7 @@
 require './nameable'
 
 class Person < Nameable
-  attr_reader :id
+  attr_reader :id, :rentals
   attr_accessor :name, :age, :parent_permission
 
   def initialize(*args)
@@ -9,6 +9,7 @@ class Person < Nameable
     @age = args[0]
     @name = args[1] || 'unknown'
     @parent_permission = args[2].nil? ? true : args[2]
+    @rentals = []
     super()
   end
 
