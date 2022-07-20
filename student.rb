@@ -1,7 +1,8 @@
 require './person'
+require './classroom.rb'
 
 class Student < Person
-  attr_reader :label
+  attr_reader :classroom
 
   def initialize(age, classroom, name = 'unknown', parent_permission: true)
     super(age: age, name: name, parent_permission: parent_permission)
@@ -12,8 +13,8 @@ class Student < Person
     "¯\(ツ)/¯"
   end
 
-  def label=(label)
-    @label = label
-    label.students.push(self) unless label.students.push.include?(self)
+  def classroom=(classroom)
+    @classroom = classroom
+    classroom.students.push(self) unless classroom.students.include?(self)
   end
 end
