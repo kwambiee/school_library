@@ -1,9 +1,10 @@
-require_relative './person'
-require_relative './classroom'
-require_relative './book'
-require_relative './rental'
-require_relative './student'
-require_relative './teacher'
+require './person.rb'
+require './classroom.rb'
+require './book.rb'
+require './rental.rb'
+require './student.rb'
+require './teacher.rb'
+
 
 class App
   def initialize
@@ -49,19 +50,18 @@ class App
       create_rental
     when '6'
       list_rentals
-      options
+    # else
+    # puts 'Thanks for using School Library App!'
     end
   end
 
   def other_options(user_option)
     if user_option == '7'
       'Thanks for using School Library App!'
-    else
-      options
     end
   end
 
-  def list_all_books
+  def list_books
     puts 'The are no books registered! Please add a student or teacher.' if @books.empty?
     @books.each do |book|
       puts "Title: #{book.title} Author: #{book.author}"
@@ -69,7 +69,7 @@ class App
     options
   end
 
-  def list_all_people
+  def list_people
     puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
     @people.map do |person|
       puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"
@@ -77,18 +77,18 @@ class App
     options
   end
 
-  def create_a_person
+  def create_person
     puts 'Do you want to create a student(1) or a teacher(2)?[input number]:'
     user_option = gets.chomp
     case user_option
     when '1'
       puts 'Age:'
       age = gets.chomp.to_i
-      puts 'Name:'
-      names = gets.chomp
       puts 'Do you have parent permission[Y/N]:'
       parent_permission = gets.chomp.downcase
-      student = Student.new(age, names, parent_permission)
+      puts 'Name:'
+      name = gets.chomp
+      student = Student.new(age, name)
       @people.push(student)
       puts 'Student created successfully!'
       options
@@ -107,7 +107,7 @@ class App
     end
   end
 
-  def create_a_book
+  def create_book
     puts 'Please enter the title of the book:'
     title = gets.chomp
     puts 'Please enter the author of the book:'
@@ -118,7 +118,7 @@ class App
     options
   end
 
-  def create_a_rental
+  def create_rental
     puts 'Select a book from the list by index(not id):'
     @books.each_with_index { |book, index| puts "#{index} Title: #{book.title}, Author: #{book.author}" }
     book_index = gets.chomp.to_i
@@ -137,7 +137,7 @@ class App
     options
   end
 
-  def list_all_rentals
+  def list_rentals
     puts 'ID of person:'
     person_id = gets.chomp.to_i
 
