@@ -40,14 +40,14 @@ class App
         when "5"
             create_a_rental
         when "6"
-            list_all_rentals_by_person_id
+            list_all_rentals
         when "7"
             puts "Thanks for using our Library!"
         end
     end
 
     def list_all_books
-        puts 'No books in the library! Please add a student or teacher.' if @books.empty?
+        puts 'The are no books registered! Please add a student or teacher.' if @books.empty?
         @books.each { |book|
             puts "Title: #{book.title} Author: #{book.author}"}
             options
@@ -64,29 +64,39 @@ class App
         puts "Do you want to create a student(1) or a teacher(2)?[input number]:"
         user_option=gets.chomp
         if user_option == "1"
-            puts "Please enter the age of the student:"
+            puts "Age:"
             age=gets.chomp.to_i
-            puts "Please enter the name of the student:"
-            name=gets.chomp
+            puts "Name:"
+            names=gets.chomp
             puts "Do you have parent permission[Y/N]:"
             parent_permission=gets.chomp.downcase
-            student=Student.new(age,name,parent_permission)
+            student=Student.new(age,names,parent_permission)
             @people.push(student)
             puts "Student created successfully!"
             options
 
         elsif user_option == "2"
-            puts "Please enter the age of the teacher:"
+            puts "Age:"
             age=gets.chomp.to_i
-            puts "Please enter the name of the teacher:"
+            puts "Name:"
             name=gets.chomp
-            puts "Please enter the specialization of the teacher:"
+            puts "Specialization:"
             specialization=gets.chomp
             teacher=Teacher.new(age,specialization,name)
             @people.push(teacher)
             puts "Teacher created successfully!"
             options
         end
+    end
+    def create_a_book
+        puts "Please enter the title of the book:"
+        title=gets.chomp
+        puts "Please enter the author of the book:"
+        author=gets.chomp
+        book=Book.new(title,author)
+        @books.push(book)
+        puts "Book created successfully!"
+        options
     end
 
     def create_a_rental
@@ -105,4 +115,17 @@ class App
         puts "Rental created successfully!"
         options
     end
+
+    def list_all_rentals
+        puts "ID of person:"
+        person_id=gets.chomp.to_i
+
+        puts "Rentals:"
+        @rentals.each do |rental|
+            if rental.person.id == person_id
+                puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}"
+            end
+        end
+        options
+
 end
