@@ -5,7 +5,6 @@ require_relative './rental'
 require_relative './student'
 require_relative './teacher'
 
-# rubocop:disable Metrics/CyclomaticComplexity
 class App
   def initialize
     @books = []
@@ -33,24 +32,32 @@ class App
         "
     user_option = gets.chomp
     get_option(user_option)
+    other_options(user_option)
   end
 
   def get_option(user_option)
     case user_option
     when '1'
-      list_all_books
+      list_books
     when '2'
-      list_all_people
+      list_people
     when '3'
-      create_a_person
+      create_person
     when '4'
-      create_a_book
+      create_book
     when '5'
-      create_a_rental
+      create_rental
     when '6'
-      list_all_rentals
-    when '7'
-      puts 'Thanks for using our Library!'
+      list_rentals
+      options
+    end
+  end
+
+  def other_options(user_option)
+    if user_option == '7'
+      exit
+    else
+      options
     end
   end
 
