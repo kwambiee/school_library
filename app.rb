@@ -3,7 +3,7 @@ class App
         @books=[]
         @people=[]
         @rentals=[]
-        @classrooms=Classroom.new("A")
+        @classroom_one=Classroom.new("A")
     end
 
     def welcome
@@ -44,6 +44,13 @@ class App
         when "7"
             puts "Thanks for using our Library!"
         end
+    end
+
+    def list_all_books
+        puts 'No books in the library! Please add a student or teacher.' if @books.empty?
+        @books.each { |book|
+            puts "Title: #{book.title} Author: #{book.author}"}
+            options
     end
 
     def create_a_person
