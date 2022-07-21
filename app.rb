@@ -1,4 +1,10 @@
 class App
+    def initialize
+        @books=[]
+        @people=[]
+        @rentals=[]
+        @classrooms=Classroom.new("A")
+    end
 
     def welcome
         puts "Welcome to School Library App!"
@@ -37,6 +43,35 @@ class App
             list_all_rentals_by_person_id
         when "7"
             puts "Thanks for using our Library!"
+        end
+    end
+
+    def create_a_person
+        puts "Do you want to create a student(1) or a teacher(2)?[input number]:"
+        user_option=gets.chomp
+        if user_option == "1"
+            puts "Please enter the age of the student:"
+            age=gets.chomp.to_i
+            puts "Please enter the name of the student:"
+            name=gets.chomp
+            puts "Do you have parent permission[Y/N]:"
+            parent_permission=gets.chomp.downcase
+            student=Student.new(age,name,parent_permission:parent_permission)
+            @people.push(student)
+            puts "Student created successfully!"
+            options
+
+        elsif user_option == "2"
+            puts "Please enter the age of the teacher:"
+            age=gets.chomp.to_i
+            puts "Please enter the name of the teacher:"
+            name=gets.chomp
+            puts "Please enter the specialization of the teacher:"
+            specialization=gets.chomp
+            teacher=Teacher.new(age,specialization,name)
+            @people.push(teacher)
+            puts "Teacher created successfully!"
+            options
         end
     end
 end
