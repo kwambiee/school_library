@@ -55,7 +55,7 @@ class App
 
   def other_options(user_option)
     if user_option == '7'
-      exit
+      "Thanks for using School Library App!"
     else
       options
     end
