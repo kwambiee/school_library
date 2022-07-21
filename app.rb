@@ -53,6 +53,13 @@ class App
             options
     end
 
+    def list_all_people
+        puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
+        @people.map { |person|
+            puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"}
+            options
+    end
+
     def create_a_person
         puts "Do you want to create a student(1) or a teacher(2)?[input number]:"
         user_option=gets.chomp
