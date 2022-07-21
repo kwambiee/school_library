@@ -1,10 +1,9 @@
-require './person.rb'
-require './classroom.rb'
-require './book.rb'
-require './rental.rb'
-require './student.rb'
-require './teacher.rb'
-
+require './person'
+require './classroom'
+require './book'
+require './rental'
+require './student'
+require './teacher'
 
 class App
   def initialize
@@ -50,15 +49,13 @@ class App
       create_rental
     when '6'
       list_rentals
-    # else
-    # puts 'Thanks for using School Library App!'
+      # else
+      # puts 'Thanks for using School Library App!'
     end
   end
 
   def other_options(user_option)
-    if user_option == '7'
-      'Thanks for using School Library App!'
-    end
+    'Thanks for using School Library App!' if user_option == '7'
   end
 
   def list_books
@@ -88,7 +85,7 @@ class App
       parent_permission = gets.chomp.downcase
       puts 'Name:'
       name = gets.chomp
-      student = Student.new(age, name)
+      student = Student.new(age, name, parent_permission: parent_permission)
       @people.push(student)
       puts 'Student created successfully!'
       options

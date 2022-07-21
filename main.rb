@@ -1,8 +1,7 @@
-require './App.rb'
+require './App'
 
 def main
-  app = App.new()
-  app.welcome()
-
+  app = App.new
+  app.welcome
 end
-main()
+main
