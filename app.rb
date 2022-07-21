@@ -70,7 +70,7 @@ class App
             name=gets.chomp
             puts "Do you have parent permission[Y/N]:"
             parent_permission=gets.chomp.downcase
-            student=Student.new(age,name,parent_permission:parent_permission)
+            student=Student.new(age,name,parent_permission)
             @people.push(student)
             puts "Student created successfully!"
             options
@@ -87,5 +87,22 @@ class App
             puts "Teacher created successfully!"
             options
         end
+    end
+
+    def create_a_rental
+        puts "Select a book from the list by index(not id):"
+        @books.each_with_index { |book, index| puts "#{index} Title: #{book.title}, Author: #{book.author}" }
+        book_index=gets.chomp.to_i
+
+        puts "select a person from the list by index(not id):"
+        @people.each_with_index { |person, index| puts "#{index} [#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}" }
+        person_index=gets.chomp.to_i
+
+        puts "Date:"
+        date=gets.chomp
+        rental=Rental.new(date,@people[person_index],@books[book_index])
+        @rentals.push(rental)
+        puts "Rental created successfully!"
+        options
     end
 end
