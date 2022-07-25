@@ -9,6 +9,7 @@ class Person < Nameable
     @age = args[0]
     @name = args[1] || 'unknown'
     @parent_permission = args[2].nil? ? true : args[2]
+    @rentals = []
     super()
   end
 
@@ -20,8 +21,9 @@ class Person < Nameable
     @name
   end
 
-  def add_rental(book, date)
-    Rental.new(date, book, self)
+  def add_rental(rental)
+    @rentals << rental
+    rental.person = self
   end
 
   private
