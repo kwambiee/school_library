@@ -30,16 +30,6 @@ class App
     end
   end
 
-  def other_options(user_option)
-    case user_option
-    when '7'
-      puts 'Thanks for using School Library App!'
-      exit
-    else
-      puts 'Please enter a valid option'
-    end
-  end
-
   def list_books
     puts 'The are no books registered! Please add a student or teacher.' if @books.empty?
     @books.each do |book|
