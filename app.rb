@@ -37,7 +37,6 @@ class App
       exit
     else
       puts 'Please enter a valid option'
-      options
     end
   end
 
@@ -46,7 +45,6 @@ class App
     @books.each do |book|
       puts "Title: #{book.title} Author: #{book.author}"
     end
-    options
   end
 
   def list_people
@@ -54,7 +52,6 @@ class App
     @people.map do |person|
       puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"
     end
-    options
   end
 
   def create_person
@@ -71,7 +68,6 @@ class App
       student = Student.new(age, name, parent_permission: parent_permission)
       @people.push(student)
       puts 'Student created successfully!'
-      options
 
     when '2'
       puts 'Age:'
@@ -83,7 +79,6 @@ class App
       teacher = Teacher.new(age, specialization, name)
       @people.push(teacher)
       puts 'Teacher created successfully!'
-      options
     end
   end
 
@@ -95,7 +90,6 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts 'Book created successfully!'
-    options
   end
 
   def create_rental
@@ -114,7 +108,6 @@ class App
     rental = Rental.new(date, @people[person_index], @books[book_index])
     @rentals.push(rental)
     puts 'Rental created successfully!'
-    options
   end
 
   def list_rentals
@@ -125,6 +118,5 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == person_id
     end
-    options
   end
 end

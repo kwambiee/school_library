@@ -5,13 +5,6 @@ class Main
     @app = App.new
   end
 
-  def welcome
-    puts 'Welcome to School Library App!'
-    puts ''
-    puts 'Please choose an option by entering a number'
-    options
-  end
-
   def options
     puts "
         1 - List all books.
@@ -22,9 +15,23 @@ class Main
         6 - List all rentals for a given person id.
         7 - Exit
         "
-    user_option = gets.chomp
-    @app.get_option(user_option)
-    @app.other_options(user_option)
+  end
+
+  def welcome
+    puts 'Welcome to School Library App!'
+    puts ''
+    puts 'Please choose an option by entering a number'
+
+    loop do
+      options
+
+      user_option = gets.chomp
+
+      break if user_option == '7'
+
+      @app.get_option(user_option)
+    end
+    puts 'Thank you for using the Library app!'
   end
 end
 
