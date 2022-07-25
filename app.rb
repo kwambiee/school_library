@@ -38,7 +38,7 @@ class App
   end
 
   def list_people
-    # puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
+    puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
     @people.map do |person|
       puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"
     end
