@@ -19,6 +19,9 @@ class App
     puts 'Please choose an option by entering a number'
     options
   end
+end
+
+class options
 
   def options
     puts "
@@ -56,6 +59,7 @@ class App
     'Thanks for using School Library App!' if user_option == '7'
   end
 end
+
 
 class Books
   def list_books
