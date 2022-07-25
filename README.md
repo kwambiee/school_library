@@ -16,6 +16,9 @@
 
 - Implement classes and objects in Ruby.
 - Implement encapsulation and inheritance with Ruby.
+- Implement composition (as an example of the design pattern).
+- Set up associations between classes and objects.
+- Build interactive console apps.
 - Run a program using the command line.
 
 ## Getting Started
@@ -38,6 +41,12 @@ Clone the repository from this [link](https://github.com/kwambiee/school-library
 - Twitter: [@kwambiee](https://twitter.com/kwambiee)
 - Linkedin: [Joy Kwamboka](https://www.linkedin.com/in/joy-kwamboka)
 - E-mail: kwambokaj2.jk@gmail.com
+
+👤 **GedeonTS**
+
+- GitHub: [@GedeonTS](https://github.com/GedeonTS)
+- Twitter: [@gedeon191](https://twitter.com/gedeon191)
+- LinkedIn: [ushinid gedeon](https://linkedin.com/in/ushinid-gedeon)
 
 ## 🤝 Contributing
 
