@@ -1,7 +1,9 @@
 require './app'
 
-def main
-  app = App.new
+class Main
+  def initialize
+    @app = App.new
+  end
 
   def welcome
     puts 'Welcome to School Library App!'
@@ -21,12 +23,10 @@ def main
         7 - Exit
         "
     user_option = gets.chomp
-    other_options(user_option)
-    app.get_option(user_option)
-  end
-
-  def other_options(user_option)
-    'Thanks for using School Library App!' if user_option == '7'
+    @app.get_option(user_option)
+    @app.other_options(user_option)
   end
 end
-main
+
+main = Main.new
+main.welcome

@@ -31,7 +31,14 @@ class App
   end
 
   def other_options(user_option)
-    'Thanks for using School Library App!' if user_option == '7'
+    case user_option
+    when '7'
+      puts 'Thanks for using School Library App!'
+      exit
+    else
+      puts 'Please enter a valid option'
+      options
+    end
   end
 
   def list_books
@@ -43,7 +50,7 @@ class App
   end
 
   def list_people
-    puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
+    # puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
     @people.map do |person|
       puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"
     end
