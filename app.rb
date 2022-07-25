@@ -78,6 +78,8 @@ class Books
   end
 end
 
+class People
+
   def list_people
     puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
     @people.map do |person|
@@ -115,7 +117,9 @@ end
       options
     end
   end
+end
 
+class Rentals
 
 
   def create_rental
