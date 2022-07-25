@@ -121,6 +121,16 @@ end
 
 class Rentals
 
+  def list_rentals
+    puts 'ID of person:'
+    person_id = gets.chomp.to_i
+
+    puts 'Rentals:'
+    @rentals.each do |rental|
+      puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == person_id
+    end
+    options
+  end
 
   def create_rental
     puts 'Select a book from the list by index(not id):'
@@ -138,17 +148,6 @@ class Rentals
     rental = Rental.new(date, @people[person_index], @books[book_index])
     @rentals.push(rental)
     puts 'Rental created successfully!'
-    options
-  end
-
-  def list_rentals
-    puts 'ID of person:'
-    person_id = gets.chomp.to_i
-
-    puts 'Rentals:'
-    @rentals.each do |rental|
-      puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == person_id
-    end
     options
   end
 end
