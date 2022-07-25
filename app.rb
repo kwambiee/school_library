@@ -13,7 +13,7 @@ class App
     @classroom_one = Classroom.new('A')
   end
 
-  def welcome
+  def run
     puts 'Welcome to School Library App!'
     puts ''
     puts 'Please choose an option by entering a number'
@@ -49,15 +49,15 @@ class App
       create_rental
     when '6'
       list_rentals
-      # else
-      # puts 'Thanks for using School Library App!'
     end
   end
 
   def other_options(user_option)
     'Thanks for using School Library App!' if user_option == '7'
   end
+end
 
+class Books
   def list_books
     puts 'The are no books registered! Please add a student or teacher.' if @books.empty?
     @books.each do |book|
@@ -65,6 +65,18 @@ class App
     end
     options
   end
+
+  def create_book
+    puts 'Please enter the title of the book:'
+    title = gets.chomp
+    puts 'Please enter the author of the book:'
+    author = gets.chomp
+    book = Book.new(title, author)
+    @books.push(book)
+    puts 'Book created successfully!'
+    options
+  end
+end
 
   def list_people
     puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
@@ -104,16 +116,7 @@ class App
     end
   end
 
-  def create_book
-    puts 'Please enter the title of the book:'
-    title = gets.chomp
-    puts 'Please enter the author of the book:'
-    author = gets.chomp
-    book = Book.new(title, author)
-    @books.push(book)
-    puts 'Book created successfully!'
-    options
-  end
+
 
   def create_rental
     puts 'Select a book from the list by index(not id):'
