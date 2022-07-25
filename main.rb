@@ -21,9 +21,12 @@ def main
         7 - Exit
         "
     user_option = gets.chomp
-    get_option(user_option)
     other_options(user_option)
+    app.get_option(user_option)
   end
-  app.run
+
+  def other_options(user_option)
+    'Thanks for using School Library App!' if user_option == '7'
+  end
 end
 main

@@ -13,9 +13,6 @@ class App
     @classroom_one = Classroom.new('A')
   end
 
-
-
-
   def get_option(user_option)
     case user_option
     when '1'
