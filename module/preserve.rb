@@ -3,18 +3,23 @@ require 'json'
 module PreserveData
 
   def load_persons
-    if File.exist?('./data/people.json')
-      JSON.parse.(File.read('./data/people.json')).each do |person|
-        if person['class'] == 'Student'
-          (Student.new(person['age'], person['name'], parent_permission: person['parent_permission']))
-        else
-          (Teacher.new(person['age'], person['name']))
+    begin
+      file = open('./data/persons.json')
+      persons=JSON.parse(file.read)
+      if persons
+        persons.each do |person|
+          if person['class'] == 'Student'
+            Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
+          else
+            Teacher.new(person['age'], person['name'])
+          end
         end
       end
-    else
-      []
+    rescue
+      puts 'No persons found!'
     end
   end
+
 
   def load_books
     begin
@@ -28,15 +33,8 @@ module PreserveData
         []
       end
     rescue
-      puts "File not found"
+      puts "No books found"
     end
-  #   if File.exist?('./data/books.json')
-  #     JSON.parse.(File.read('./data/books.json')).each do |book|
-  #       Book.new(book['title'], book['author'])
-  #     end
-  #   else
-  #     []
-  #   end
   end
 
   def get_person(id)
@@ -48,14 +46,21 @@ module PreserveData
   end
 
   def load_rentals
-    if File.exist?('./data/rentals.json')
-      JSON.parse.(File.read('./data/rentals.json')).each do |rental|
-        (Rental.new(rental['date'], get_person(rental['person_id']), get_book(rental['book_id'])))
+    begin
+      file = open("data/rentals.json")
+      rentals = JSON.parse(file.read)
+      if rentals
+        rentals.each do |rental|
+          @rentals << Rental.new(rental['date'], get_person(rental['person_id']), get_book(rental['book_id']))
+        end
+      else
+        []
       end
-    else
-      []
+    rescue
+      puts "No rentals found"
     end
   end
+
 
   def save_data
     File.write('./data/people.json', JSON.generate(@people)) if @people.length > 0

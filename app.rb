@@ -12,10 +12,9 @@ include PreserveData
 
   def initialize
     @books = load_books || []
-    p @books
-    # @people = load_persons
-    # @rentals = load_rentals
-    # @classroom_one = Classroom.new('A')
+    @people = load_persons
+    @rentals = load_rentals
+    @classroom_one = Classroom.new('A')
   end
 
   def get_option(user_option)
