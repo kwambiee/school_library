@@ -122,4 +122,9 @@ class App
     end
   end
 
+  def read_json
+    @books = JSON.parse(File.read('books.json'))
+    @people = JSON.parse(File.read('people.json'))
+    @rentals = JSON.parse(File.read('rentals.json'))
+  end
 end
