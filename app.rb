@@ -124,7 +124,7 @@ include PreserveData
   def write_books
     book= @books.map {|book| {'Author': book.author, 'Title': book.title}}
         begin
-      File.open('books.json', 'a') do |file|
+      File.open('./data/books.json', 'a') do |file|
         book.each do |book|
            file.write(book.to_json)
         end
@@ -139,9 +139,24 @@ include PreserveData
     people = @people.map {|person| {'Class': person.class, 'Id': person.id, 'Name': person.name, 'Age': person.age}}
 
     begin
-      File.open('people.json', 'a') do |file|
+      File.open('./data/people.json', 'a') do |file|
         people.each do |person|
         file.write(person.to_json)
+        end
+      end
+    rescue StandardError => e
+      puts e.message
+    end
+
+  end
+
+  def write_rentals
+    rentals = @rentals.map {|rental| {'Date': rental.date, 'Person': rental.person.id, 'Book': rental.book.id}}
+
+    begin
+      File.open('./data/rentals.json', 'a') do |file|
+        rentals.each do |rental|
+        file.write(rental.to_json)
         end
       end
     rescue StandardError => e

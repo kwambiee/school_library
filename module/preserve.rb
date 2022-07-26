@@ -61,11 +61,4 @@ module PreserveData
     end
   end
 
-
-  def save_data
-    File.write('./data/people.json', JSON.generate(@people)) if @people.length > 0
-    File.write('./data/books.json', JSON.generate(@books)) if @books.length > 0
-    File.write('./data/rentals.json', JSON.generate(@rentals)) if @rentals.length > 0
-  end
-
 end

@@ -1,16 +1,16 @@
-// [
-//   {
-//     "class": "Student",
-//     "id": 1,
-//     "name": "John",
-//     "age": "20",
-//     "parent_permission": true
-//   },
-//   {
-//     "class": "Teacher",
-//     "id": 2,
-//     "name": "Jane",
-//     "age": "30",
-//     "specialization": "Math Teacher"
-//   }
-// ]
+[
+  {
+    "class": "Student",
+    "id": 1,
+    "name": "John",
+    "age": "20",
+    "parent_permission": true
+  },
+  {
+    "class": "Teacher",
+    "id": 2,
+    "name": "Jane",
+    "age": "30",
+    "specialization": "Math Teacher"
+  }
+]
