@@ -5,15 +5,17 @@ require './rental'
 require './student'
 require './teacher'
 require './module/preserve'
+require 'json'
 
 class App
-include Preserve
+include PreserveData
 
   def initialize
-    @books = load_books
-    @people = load_persons
-    @rentals = load_rentals
-    @classroom_one = Classroom.new('A')
+    @books = load_books || []
+    p @books
+    # @people = load_persons
+    # @rentals = load_rentals
+    # @classroom_one = Classroom.new('A')
   end
 
   def get_option(user_option)
@@ -82,8 +84,11 @@ include Preserve
     author = gets.chomp
     book = Book.new(title, author)
     @books.push(book)
+    write_books
     puts 'Book created successfully!'
   end
+
+
 
   def create_rental
     puts 'Select a book from the list by index(not id):'
@@ -111,6 +116,19 @@ include Preserve
     @rentals.each do |rental|
       puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == person_id
     end
+  end
+
+  private
+
+  def write_books
+    p @books.to_json
+    # begin
+    #   File.open('books.json', 'w') do |file|
+    #     file.puts @books.to_json
+    #   end
+    # rescue StandardError => e
+    #   puts e.message
+    # end
   end
 
 end

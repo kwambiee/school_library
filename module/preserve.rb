@@ -17,13 +17,26 @@ module PreserveData
   end
 
   def load_books
-    if File.exist?('./data/books.json')
-      JSON.parse.(File.read('./data/books.json')).each do |book|
-        (Book.new(book['title'], book['author']))
+    begin
+      file = open("data/books.json")
+      books = JSON.parse(file.read)
+      if books
+        books.each do |book|
+          @books << Book.new(book['title'], book['author'])
+        end
+      else
+        []
       end
-    else
-      []
+    rescue
+      puts "File not found"
     end
+  #   if File.exist?('./data/books.json')
+  #     JSON.parse.(File.read('./data/books.json')).each do |book|
+  #       Book.new(book['title'], book['author'])
+  #     end
+  #   else
+  #     []
+  #   end
   end
 
   def get_person(id)
