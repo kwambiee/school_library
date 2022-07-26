@@ -4,13 +4,15 @@ require './book'
 require './rental'
 require './student'
 require './teacher'
-require 'json'
+require './module/preserve'
 
 class App
+include Preserve
+
   def initialize
-    @books = []
-    @people = []
-    @rentals = []
+    @books = load_books
+    @people = load_persons
+    @rentals = load_rentals
     @classroom_one = Classroom.new('A')
   end
 
