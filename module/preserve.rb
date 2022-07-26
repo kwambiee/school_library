@@ -1,21 +1,18 @@
+require 'json'
+
 module PreserveData
 
-
-def write_json
-    File.open('books.json', 'w') do |file|
-      file.write(@books.to_json, mode: 'a')
+  def load_persons
+    if File.exist?('./data/people.json')
+      JSON.parse.(File.read('./data/people.json')).each do |person|
+        if person['class'] == 'Student'
+          @people.push(Student.new(person['age'], person['name'], parent_permission: person['parent_permission']))
+        else
+          @people.push(Teacher.new(person['age'], person['name']))
+        end
+      end
+    else
+      puts 'No data found!'
     end
-    File.open('people.json', 'w') do |file|
-      file.write(@people.to_json, mode: 'a')
-    end
-    File.open('rentals.json', 'w') do |file|
-      file.write(@rentals.to_json, mode: 'a')
-    end
-  end
-
-  def read_json
-    @books = JSON.parse(File.read('books.json'))
-    @people = JSON.parse(File.read('people.json'))
-    @rentals = JSON.parse(File.read('rentals.json'))
   end
 end
