@@ -120,14 +120,19 @@ include PreserveData
   private
 
   def write_books
-    p @books.to_json
-    # begin
-    #   File.open('books.json', 'w') do |file|
-    #     file.puts @books.to_json
-    #   end
-    # rescue StandardError => e
-    #   puts e.message
-    # end
+    @add_books=[]
+
+    book= @books.map {|book| {'Author': book.author, 'Title': book.title}}
+        begin
+      File.open('books.json', 'a') do |file|
+        book.each do |book|
+           file.write(book.to_json)
+        end
+
+      end
+    rescue StandardError => e
+      puts e.message
+    end
   end
 
 end
