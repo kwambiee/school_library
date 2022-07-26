@@ -2,12 +2,14 @@ require 'json'
 
 module PreserveData
 
+
   def load_persons
     begin
       file = open('./data/people.json')
       persons=JSON.parse(file.read)
+      p persons
       if persons
-        persons.each do |person|
+        @people = persons.map do |person|
           if person['class'] == 'Student'
             Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
           else

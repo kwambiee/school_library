@@ -11,10 +11,10 @@ class App
 include PreserveData
 
   def initialize
-    @books = load_books || []
+    # @books = load_books || []
     @people = load_persons || []
-    @rentals = load_rentals
-    @classroom_one = Classroom.new('A')
+    # @rentals = load_rentals
+    # @classroom_one = Classroom.new('A')
   end
 
   def get_option(user_option)
@@ -61,7 +61,7 @@ include PreserveData
       name = gets.chomp
       student = Student.new(age, name, parent_permission: parent_permission)
       @people.push(student)
-      write_people
+      write_person
       puts 'Student created successfully!'
 
     when '2'
@@ -73,7 +73,7 @@ include PreserveData
       specialization = gets.chomp
       teacher = Teacher.new(age, specialization, name)
       @people.push(teacher)
-      write_people
+      write_person
       puts 'Teacher created successfully!'
     end
   end
@@ -135,15 +135,25 @@ include PreserveData
     end
   end
 
-  def write_people
-    people = @people.map {|person| {'Class': person.class, 'Id': person.id, 'Name': person.name, 'Age': person.age}}
+  def write_person
+
+
+    people = @people.map {|person|
+     if person.class == Student
+        {'Id': person.id, 'Name': person.name, 'Age': person.age, 'Parent Permission': person.parent_permission}
+      else
+        {'Id': person.id, 'Name': person.name, 'Age': person.age, 'Specialization': person.specialization}
+      end
+    }
 
     begin
-      File.open('./data/people.json', 'a') do |file|
+      array = []
+      json_file= File.open('./data/people.json', 'a') do |file|
         people.each do |person|
         file.write(person.to_json)
         end
       end
+
     rescue StandardError => e
       puts e.message
     end
