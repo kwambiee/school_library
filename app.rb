@@ -13,28 +13,6 @@ class App
     @classroom_one = Classroom.new('A')
   end
 
-  def welcome
-    puts 'Welcome to School Library App!'
-    puts ''
-    puts 'Please choose an option by entering a number'
-    options
-  end
-
-  def options
-    puts "
-        1 - List all books.
-        2 - List all people.
-        3 - Create a person.
-        4 - Create a book.
-        5 - Create a rental.
-        6 - List all rentals for a given person id.
-        7 - Exit
-        "
-    user_option = gets.chomp
-    get_option(user_option)
-    other_options(user_option)
-  end
-
   def get_option(user_option)
     case user_option
     when '1'
@@ -49,13 +27,7 @@ class App
       create_rental
     when '6'
       list_rentals
-      # else
-      # puts 'Thanks for using School Library App!'
     end
-  end
-
-  def other_options(user_option)
-    'Thanks for using School Library App!' if user_option == '7'
   end
 
   def list_books
@@ -63,7 +35,6 @@ class App
     @books.each do |book|
       puts "Title: #{book.title} Author: #{book.author}"
     end
-    options
   end
 
   def list_people
@@ -71,7 +42,6 @@ class App
     @people.map do |person|
       puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"
     end
-    options
   end
 
   def create_person
@@ -88,7 +58,6 @@ class App
       student = Student.new(age, name, parent_permission: parent_permission)
       @people.push(student)
       puts 'Student created successfully!'
-      options
 
     when '2'
       puts 'Age:'
@@ -100,7 +69,6 @@ class App
       teacher = Teacher.new(age, specialization, name)
       @people.push(teacher)
       puts 'Teacher created successfully!'
-      options
     end
   end
 
@@ -112,7 +80,6 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts 'Book created successfully!'
-    options
   end
 
   def create_rental
@@ -131,7 +98,6 @@ class App
     rental = Rental.new(date, @people[person_index], @books[book_index])
     @rentals.push(rental)
     puts 'Rental created successfully!'
-    options
   end
 
   def list_rentals
@@ -142,6 +108,5 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == person_id
     end
-    options
   end
 end
