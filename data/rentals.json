@@ -1,0 +1,8 @@
+[
+    {
+    "json_class": "Rental",
+    "date": "2015-01-01",
+    "person_id": 1,
+    "book_id": 1
+    }
+]
