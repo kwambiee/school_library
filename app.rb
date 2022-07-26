@@ -12,7 +12,7 @@ include PreserveData
 
   def initialize
     @books = load_books || []
-    @people = load_persons
+    @people = load_persons || []
     @rentals = load_rentals
     @classroom_one = Classroom.new('A')
   end
@@ -61,6 +61,7 @@ include PreserveData
       name = gets.chomp
       student = Student.new(age, name, parent_permission: parent_permission)
       @people.push(student)
+      write_people
       puts 'Student created successfully!'
 
     when '2'
@@ -72,6 +73,7 @@ include PreserveData
       specialization = gets.chomp
       teacher = Teacher.new(age, specialization, name)
       @people.push(teacher)
+      write_people
       puts 'Teacher created successfully!'
     end
   end
@@ -120,8 +122,6 @@ include PreserveData
   private
 
   def write_books
-    @add_books=[]
-
     book= @books.map {|book| {'Author': book.author, 'Title': book.title}}
         begin
       File.open('books.json', 'a') do |file|
@@ -133,6 +133,21 @@ include PreserveData
     rescue StandardError => e
       puts e.message
     end
+  end
+
+  def write_people
+    people = @people.map {|person| {'Class': person.class, 'Id': person.id, 'Name': person.name, 'Age': person.age}}
+
+    begin
+      File.open('people.json', 'a') do |file|
+        people.each do |person|
+        file.write(person.to_json)
+        end
+      end
+    rescue StandardError => e
+      puts e.message
+    end
+
   end
 
 end

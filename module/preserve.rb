@@ -4,7 +4,7 @@ module PreserveData
 
   def load_persons
     begin
-      file = open('./data/persons.json')
+      file = open('./data/people.json')
       persons=JSON.parse(file.read)
       if persons
         persons.each do |person|
