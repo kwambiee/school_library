@@ -12,15 +12,15 @@ module PreserveData
 
       if !persons['people'].empty?
         persons['people'].each do |person|
-          new_teacher= Teacher.new(person['class'],person['id'], person['name'], person['age'], person['specialization'])
-          new_student= Student.new(person['class'], person['id'], person['name'], person['age'], person['parent_permission'])
-          if new_teacher
-            person_list.push(new_teacher)
-          else new_student
-            person_list.push(new_student)
+          if person['class']=='Teacher'
+            person_list << Teacher.new( person['name'], person['age'], person['specialization'])
+          
+          elsif  person['class']=='Student'
+          person_list << Student.new( person['age'],person['name'], parent_permission:person['parent_permission'])
           end
         end
         end
+        
       person_list
       rescue
         puts 'No person found'
