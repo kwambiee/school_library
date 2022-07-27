@@ -36,4 +36,4 @@ class Main
 end
 
 main = Main.new
-# main.welcome
+main.welcome

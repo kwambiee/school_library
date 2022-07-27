@@ -14,13 +14,13 @@ module PreserveData
         persons['people'].each do |person|
           if person['class']=='Teacher'
             person_list << Teacher.new( person['name'], person['age'], person['specialization'])
-          
+
           elsif  person['class']=='Student'
           person_list << Student.new( person['age'],person['name'], parent_permission:person['parent_permission'])
           end
         end
         end
-        
+
       person_list
       rescue
         puts 'No person found'
@@ -54,17 +54,19 @@ module PreserveData
     @books.select { |book| book.id == @book_id }[0]
   end
 
+
   def load_rentals
     begin
       file = open("data/rentals.json")
       rentals = JSON.parse(file.read)
-      if rentals
-        rentals.each do |rental|
-          @rentals << Rental.new(rental['date'], get_person(rental['person_id']), get_book(rental['book_id']))
+      rental_list=[]
+
+      if !rentals['rentals'].empty?
+        rentals['rentals'].each do |rental|
+          rental_list  << Rental.new(rental['date'], get_person(rental['person_id']), get_book(rental['book_id']))
         end
-      else
-        []
       end
+      rental_list
     rescue
       puts "No rentals found"
     end

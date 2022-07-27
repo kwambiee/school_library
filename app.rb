@@ -11,10 +11,9 @@ class App
 include PreserveData
 
   def initialize
-    # @books = load_books || []
+    @books = load_books || []
     @people = load_persons || []
-    p @people
-    # @rentals = load_rentals
+    @rentals = load_rentals || []
     @classroom_one = Classroom.new('A')
   end
 
@@ -107,6 +106,7 @@ include PreserveData
     date = gets.chomp
     rental = Rental.new(date, @people[person_index], @books[book_index])
     @rentals.push(rental)
+    write_rentals
     puts 'Rental created successfully!'
   end
 
@@ -163,13 +163,16 @@ include PreserveData
   end
 
   def write_rentals
-    rentals = @rentals.map {|rental| {'Date': rental.date, 'Person': rental.person.id, 'Book': rental.book.id}}
+    rentals = @rentals.map {|rental| {'Date': rental.date, 'Person': rental.person.id}}
+
+    rentals_list={'rentals'=> []}
+    rentals.each do |rental|
+      rentals_list['rentals'].push(rental)
+    end
 
     begin
-      File.open('./data/rentals.json', 'a') do |file|
-        rentals.each do |rental|
-        file.write(rental.to_json)
-        end
+      File.open('./data/rentals.json', 'w') do |file|
+        file.write(rental_list.to_json)
       end
     rescue StandardError => e
       puts e.message
