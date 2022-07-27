@@ -1,1 +1,1 @@
-{"people":[{"class":"Teacher","id":67,"name":"wewe","age":"sdsd","specialization":23},{"class":"Teacher","id":733,"name":"444","age":"444","specialization":444},{"class":"Student","id":448,"name":"arnold","age":23,"parent_permission":{"parent_permission":"n"}}]}
+{"people":[{"class":"Student","id":657,"name":"dfdf","age":23,"parent_permission":{"parent_permission":{"parent_permission":"n"}}}]}
