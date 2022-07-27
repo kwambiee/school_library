@@ -1,75 +1,63 @@
 require 'json'
 
 module PreserveData
-
-
   def load_persons
+    file = open('./data/people.json')
+    persons = JSON.parse(file.read)
+    person_list = []
 
-    begin
-      file = open('./data/people.json')
-      persons=JSON.parse(file.read)
-      person_list=[]
+    unless persons['people'].empty?
+      persons['people'].each do |person|
+        case person['class']
+        when 'Teacher'
+          person_list << Teacher.new(person['name'], person['age'], person['specialization'])
 
-      if !persons['people'].empty?
-        persons['people'].each do |person|
-          if person['class']=='Teacher'
-            person_list << Teacher.new( person['name'], person['age'], person['specialization'])
-
-          elsif  person['class']=='Student'
-          person_list << Student.new( person['age'],person['name'], parent_permission:person['parent_permission'])
-          end
-        end
-        end
-
-      person_list
-      rescue
-        puts 'No person found'
-    end
-  end
-
-
-  def load_books
-    begin
-      file = open("data/books.json")
-      books = JSON.parse(file.read)
-      book_list=[]
-
-
-      if !books['books'].empty?
-        books['books'].each do |book|
-          book_list << Book.new(book['title'], book['author'])
+        when 'Student'
+          person_list << Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
         end
       end
-      book_list
-    rescue
-      puts "No books found"
     end
+
+    person_list
+  rescue StandardError
+    puts 'No person found'
   end
 
-  def get_person(id)
+  def load_books
+    file = open('data/books.json')
+    books = JSON.parse(file.read)
+    book_list = []
+
+    unless books['books'].empty?
+      books['books'].each do |book|
+        book_list << Book.new(book['title'], book['author'])
+      end
+    end
+    book_list
+  rescue StandardError
+    puts 'No books found'
+  end
+
+  def get_person(_id)
     @people.select { |person| person.id == @person_id }[0]
   end
 
-  def get_book(id)
+  def get_book(_id)
     @books.select { |book| book.id == @book_id }[0]
   end
 
-
   def load_rentals
-    begin
-      file = open("data/rentals.json")
-      rentals = JSON.parse(file.read)
-      rental_list=[]
+    file = open('data/rentals.json')
+    rentals = JSON.parse(file.read)
+    rental_list = []
 
-      if !rentals['rentals'].empty?
-        rentals['rentals'].each do |rental|
-          rental_list  << Rental.new(rental['date'], get_person(rental['person_id']), get_book(rental['book_id']))
-        end
+    unless rentals['rentals'].empty?
+      rentals['rentals'].each do |rental|
+        rental_list << Rental.new(rental['person'], rental['book'], rental['date'])
       end
-      rental_list
-    rescue
-      puts "No rentals found"
     end
+    rental_list
+  rescue StandardError
+    puts 'No rentals found'
   end
-
 end
