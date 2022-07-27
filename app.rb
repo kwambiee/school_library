@@ -11,10 +11,11 @@ class App
 include PreserveData
 
   def initialize
-    # @books = load_books || []
+    @books = load_books || []
+    p @books
     @people = load_persons || []
     # @rentals = load_rentals
-    # @classroom_one = Classroom.new('A')
+    @classroom_one = Classroom.new('A')
   end
 
   def get_option(user_option)
@@ -37,7 +38,7 @@ include PreserveData
   def list_books
     puts 'The are no books registered! Please add a student or teacher.' if @books.empty?
     @books.each do |book|
-      puts "Title: #{book.title} Author: #{book.author}"
+      puts "title: #{book.title} author: #{book.author}"
     end
   end
 
@@ -122,21 +123,22 @@ include PreserveData
   private
 
   def write_books
-    book= @books.map {|book| {'Author': book.author, 'Title': book.title}}
-        begin
-      File.open('./data/books.json', 'a') do |file|
-        book.each do |book|
-           file.write(book.to_json)
-        end
 
+    book= @books.map {|book| {'author': book.author, 'title': book.title}}
+    book_list={'books'=> []}
+      book.each do |book|
+        book_list['books'].push(book)
       end
-    rescue StandardError => e
+      begin
+        File.open('./data/books.json', 'w') do |file|
+        file.write(book_list.to_json)
+      end
+     rescue StandardError => e
       puts e.message
     end
   end
 
   def write_person
-
 
     people = @people.map {|person|
      if person.class == Student

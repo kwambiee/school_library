@@ -27,13 +27,15 @@ module PreserveData
     begin
       file = open("data/books.json")
       books = JSON.parse(file.read)
-      if books
-        books.each do |book|
-          @books << Book.new(book['title'], book['author'])
+      book_list=[]
+      # p books['books']
+
+      if !books['books'].empty?
+        books['books'].each do |book|
+          book_list << Book.new(book['title'], book['author'])
         end
-      else
-        []
       end
+      book_list
     rescue
       puts "No books found"
     end
