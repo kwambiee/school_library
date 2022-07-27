@@ -8,7 +8,7 @@ require './module/preserve'
 require 'json'
 
 class App
-include PreserveData
+  include PreserveData
 
   def initialize
     @books = load_books || []
@@ -89,8 +89,6 @@ include PreserveData
     puts 'Book created successfully!'
   end
 
-
-
   def create_rental
     puts 'Select a book from the list by index(not id):'
     @books.each_with_index { |book, index| puts "#{index} Title: #{book.title}, Author: #{book.author}" }
@@ -104,7 +102,7 @@ include PreserveData
 
     puts 'Date:'
     date = gets.chomp
-    rental = Rental.new(date, @people[person_index], @books[book_index])
+    rental = Rental.new(@people[person_index].name, @books[book_index].title, date)
     @rentals.push(rental)
     write_rentals
     puts 'Rental created successfully!'
@@ -123,61 +121,52 @@ include PreserveData
   private
 
   def write_books
-
-    book= @books.map {|book| {'author': book.author, 'title': book.title}}
-    book_list={'books'=> []}
-      book.each do |book|
-        book_list['books'].push(book)
-      end
-      begin
-        File.open('./data/books.json', 'w') do |file|
-        file.write(book_list.to_json)
-      end
-     rescue StandardError => e
+    book = @books.map { |book| { author: book.author, title: book.title } }
+    book_list = { 'books' => [] }
+    book.each do |book|
+      book_list['books'].push(book)
+    end
+    begin
+      File.write('./data/books.json', book_list.to_json)
+    rescue StandardError => e
       puts e.message
     end
   end
 
   def write_person
-
-    people = @people.map {|person|
-     if person.class == Student
-        {'class':person.class ,'id': person.id, 'name': person.name, 'age': person.age, 'parent_permission': person.parent_permission}
+    people = @people.map do |person|
+      if person.instance_of?(Student)
+        { class: person.class, id: person.id, name: person.name, age: person.age,
+          parent_permission: person.parent_permission }
       else
-        {'class': person.class,'id': person.id, 'name': person.name, 'age': person.age, 'specialization': person.specialization}
+        { class: person.class, id: person.id, name: person.name, age: person.age,
+          specialization: person.specialization }
       end
-    }
+    end
 
-    person_list={'people'=> []}
+    person_list = { 'people' => [] }
     people.each do |person|
-        person_list['people'].push(person)
+      person_list['people'].push(person)
     end
     begin
-      json_file= File.open('./data/people.json', 'w') do |file|
-        file.write(person_list.to_json)
-      end
-
+      json_file = File.write('./data/people.json', person_list.to_json)
     rescue StandardError => e
       puts e.message
     end
   end
 
   def write_rentals
-    rentals = @rentals.map {|rental| {'Date': rental.date, 'Person': rental.person.id}}
-
-    rentals_list={'rentals'=> []}
-    rentals.each do |rental|
-      rentals_list['rentals'].push(rental)
+    rental = @rentals.map do |rental|
+      { person: rental.person, book: rental.book, date: rental.date }
     end
-
+    rental_list = { 'rentals' => [] }
+    rental.each do |rental|
+      rental_list['rentals'].push(rental)
+    end
     begin
-      File.open('./data/rentals.json', 'w') do |file|
-        file.write(rental_list.to_json)
-      end
+      File.write('./data/rentals.json', rental_list.to_json)
     rescue StandardError => e
       puts e.message
     end
-
   end
-
 end
