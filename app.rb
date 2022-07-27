@@ -11,9 +11,9 @@ class App
 include PreserveData
 
   def initialize
-    @books = load_books || []
-    p @books
+    # @books = load_books || []
     @people = load_persons || []
+    p @people
     # @rentals = load_rentals
     @classroom_one = Classroom.new('A')
   end
@@ -45,7 +45,7 @@ include PreserveData
   def list_people
     puts 'The are no people registered! Please add a student or teacher.' if @people.empty?
     @people.map do |person|
-      puts "[#{person.class}] Id:#{person.id} Name:#{person.name} Age: #{person.age}"
+      puts "[#{person.class}] id:#{person.id} name:#{person.name} age: #{person.age}"
     end
   end
 
@@ -142,24 +142,24 @@ include PreserveData
 
     people = @people.map {|person|
      if person.class == Student
-        {'Id': person.id, 'Name': person.name, 'Age': person.age, 'Parent Permission': person.parent_permission}
+        {'class':person.class ,'id': person.id, 'name': person.name, 'age': person.age, 'parent_permission': person.parent_permission}
       else
-        {'Id': person.id, 'Name': person.name, 'Age': person.age, 'Specialization': person.specialization}
+        {'class': person.class,'id': person.id, 'name': person.name, 'age': person.age, 'specialization': person.specialization}
       end
     }
 
+    person_list={'people'=> []}
+    people.each do |person|
+        person_list['people'].push(person)
+    end
     begin
-      array = []
-      json_file= File.open('./data/people.json', 'a') do |file|
-        people.each do |person|
-        file.write(person.to_json)
-        end
+      json_file= File.open('./data/people.json', 'w') do |file|
+        file.write(person_list.to_json)
       end
 
     rescue StandardError => e
       puts e.message
     end
-
   end
 
   def write_rentals

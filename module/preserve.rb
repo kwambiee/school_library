@@ -4,21 +4,26 @@ module PreserveData
 
 
   def load_persons
+
     begin
       file = open('./data/people.json')
       persons=JSON.parse(file.read)
-      p persons
-      if persons
-        @people = persons.map do |person|
-          if person['class'] == 'Student'
-            Student.new(person['age'], person['name'], parent_permission: person['parent_permission'])
-          else
-            Teacher.new(person['age'], person['name'])
+      person_list=[]
+
+      if !persons['people'].empty?
+        persons['people'].each do |person|
+          new_teacher= Teacher.new(person['class'],person['id'], person['name'], person['age'], person['specialization'])
+          new_student= Student.new(person['class'], person['id'], person['name'], person['age'], person['parent_permission'])
+          if new_teacher
+            person_list.push(new_teacher)
+          else new_student
+            person_list.push(new_student)
           end
         end
-      end
-    rescue
-      puts 'No persons found!'
+        end
+      person_list
+      rescue
+        puts 'No person found'
     end
   end
 
@@ -28,7 +33,7 @@ module PreserveData
       file = open("data/books.json")
       books = JSON.parse(file.read)
       book_list=[]
-      # p books['books']
+
 
       if !books['books'].empty?
         books['books'].each do |book|
