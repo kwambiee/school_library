@@ -4,7 +4,6 @@ require_relative '../capitalize'
 
 describe Decorator do
   nameable = 'manchesterunited'
-  capitalize = CapitalizeDecorator.new(nameable)
   describe '#capitalize' do
     it 'should return the name with the first letter capitalized' do
       expect(nameable.capitalize).to eq('Manchesterunited')
