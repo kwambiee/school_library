@@ -40,6 +40,7 @@ Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
 Layout/EndOfLine:
+  Enabled: false
   EnforcedStyle: crlf
 Lint/RaiseException:
   Enabled: false
