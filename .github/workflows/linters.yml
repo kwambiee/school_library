@@ -16,4 +16,4 @@ jobs:
         run: |
           gem install --no-document rubocop -v '>= 1.0, < 2.0' # https://docs.rubocop.org/en/stable/installation/
       - name: Rubocop Report
-        run: rubocop --color
+        run: rubocop
