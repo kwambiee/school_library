@@ -1,13 +1,13 @@
 require_relative '../person'
 
 describe Person do
-    let(:person) { Person.new(18, 'John Doe') }
+    let(:person) { Person.new(18, 'John') }
     let(:rental) { Rental.new(1, 'A', 'B') }
 
     describe '#initialize' do
         it 'should initialize with age, name and parent_permission' do
         expect(person.age).to eq(18)
-        expect(person.name).to eq('John Doe')
+        expect(person.name).to eq('John')
         expect(person.parent_permission).to eq true
         end
     end
@@ -25,7 +25,7 @@ describe Person do
 
     describe '#correct_name' do
         it 'should return the name' do
-        expect(person.correct_name).to eq('John Doe')
+        expect(person.correct_name).to eq('John')
         end
     end
 end
