@@ -109,7 +109,7 @@ class App
   end
 
   def list_rentals
-    names=@rentals.map{|rental| rental.person}.uniq
+    names = @rentals.map(&:person).uniq
 
     loop do
       puts 'select person name(by index):'
@@ -124,7 +124,7 @@ class App
         available_rentals(names[name_index])
         break
       end
-      puts "Invalid input"
+      puts 'Invalid input'
     end
   end
 
@@ -137,12 +137,11 @@ class App
     end
   end
 
-
   def write_books
-    book = @books.map { |book| { author: book.author, title: book.title } }
+    book = @books.map { |booky| { author: booky.author, title: booky.title } }
     book_list = { 'books' => [] }
-    book.each do |book|
-      book_list['books'].push(book)
+    book.each do |bookie|
+      book_list['books'].push(bookie)
     end
     begin
       File.write('./data/books.json', book_list.to_json)
@@ -167,19 +166,19 @@ class App
       person_list['people'].push(person)
     end
     begin
-      json_file = File.write('./data/people.json', person_list.to_json)
+      File.write('./data/people.json', person_list.to_json)
     rescue StandardError => e
       puts e.message
     end
   end
 
   def write_rentals
-    rental = @rentals.map do |rental|
-      { person: rental.person, book: rental.book, date: rental.date }
+    rental = @rentals.map do |rent|
+      { person: rent.person, book: rent.book, date: rent.date }
     end
     rental_list = { 'rentals' => [] }
-    rental.each do |rental|
-      rental_list['rentals'].push(rental)
+    rental.each do |rent|
+      rental_list['rentals'].push(rent)
     end
     begin
       File.write('./data/rentals.json', rental_list.to_json)
