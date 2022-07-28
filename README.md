@@ -19,6 +19,7 @@
 - Implement composition (as an example of the design pattern).
 - Set up associations between classes and objects.
 - Build interactive console apps.
+- Preserve data in files
 - Run a program using the command line.
 
 ## Getting Started
