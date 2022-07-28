@@ -1,8 +1,8 @@
 require './nameable'
 
 class Person < Nameable
-  attr_reader :id, :rentals
-  attr_accessor :name, :age, :parent_permission
+  attr_reader :id
+  attr_accessor :name, :age, :parent_permission, :rentals
 
   def initialize(*args)
     @id = Random.rand(1..1000)
