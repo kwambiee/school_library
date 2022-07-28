@@ -11,7 +11,6 @@ describe Decorator do
   end
 
   describe '#trim' do
-    trim = TrimmerDecorator.new(nameable)
     it 'should return the name with the first letter capitalized' do
       expect(nameable[0, 10]).to eq('manchester')
     end
