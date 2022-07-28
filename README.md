@@ -20,6 +20,7 @@
 - Set up associations between classes and objects.
 - Build interactive console apps.
 - Preserve data in files
+- create unit test
 - Run a program using the command line.
 
 ## Getting Started
