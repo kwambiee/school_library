@@ -41,7 +41,6 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Layout/EndOfLine:
   Enabled: false
-  EnforcedStyle: crlf
 Lint/RaiseException:
   Enabled: false
 Lint/StructNewOverride:
