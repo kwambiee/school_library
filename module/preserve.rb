@@ -51,6 +51,7 @@ module PreserveData
     rentals = JSON.parse(file.read)
     rental_list = []
 
+
     unless rentals['rentals'].empty?
       rentals['rentals'].each do |rental|
         rental_list << Rental.new(rental['person'], rental['book'], rental['date'])

@@ -109,16 +109,34 @@ class App
   end
 
   def list_rentals
-    puts 'ID of person:'
-    person_id = gets.chomp.to_i
+    names=@rentals.map{|rental| rental.person}.uniq
 
-    puts 'Rentals:'
-    @rentals.each do |rental|
-      puts "Date: #{rental.date} Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == person_id
+    loop do
+      puts 'select person name(by index):'
+      names.each_with_index do |name, index|
+        puts "#{index} #{name}"
+      end
+      puts '7 to exit'
+      name_index = gets.chomp.to_i
+      break if name_index == 7
+
+      if names[name_index]
+        available_rentals(names[name_index])
+        break
+      end
+      puts "Invalid input"
     end
   end
 
   private
+
+  def available_rentals(name)
+    puts 'Rentals:'
+    @rentals.each do |rental|
+      puts "Date: #{rental.date} Book: '#{rental.book}' by #{rental.person}" if rental.person == name
+    end
+  end
+
 
   def write_books
     book = @books.map { |book| { author: book.author, title: book.title } }
